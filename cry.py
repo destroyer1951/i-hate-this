@@ -15,24 +15,6 @@ magician = "magician.png"
 retry = "retry.png"
 
 
-cardRegion = region_percent(
-    x_pct=12,   # 12% from left
-    y_pct=22,   # 22% from top
-    w_pct=75,   # 75% of screen width
-    h_pct=13    # 13% of screen height
-)
-
-retryRegion = region_percent(
-    x_pct=30,
-    y_pct=50,
-    w_pct=30,
-    h_pct=30
-)
-
-#left, top, w, h = cardRegion
-#pyautogui.moveTo(left, top)
-#pyautogui.dragTo(left + w, top + h, duration=1.5)
-
 
 def moveToPercent(x_percent, y_percent, duration=0): # ai wrote this lmao
     width, height = pyautogui.size()
@@ -66,6 +48,26 @@ def clickMyCard(location):
     fixStupid()
     pyautogui.click()
 
+
+cardRegion = region_percent(
+    x_pct=12,   # 12% from left
+    y_pct=22,   # 22% from top
+    w_pct=75,   # 75% of screen width
+    h_pct=13    # 13% of screen height
+)
+
+retryRegion = region_percent(
+    x_pct=35,
+    y_pct=60,
+    w_pct=20,
+    h_pct=20
+)
+
+#left, top, w, h = cardRegion
+#pyautogui.moveTo(left, top)
+#pyautogui.dragTo(left + w, top + h, duration=1.5)
+
+
 def findMyCard(name):
     if name == magician:
         try:
@@ -78,7 +80,7 @@ def findMyCard(name):
                 clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
-            print("magician card not found")
+            
             findMyCard(lovers)
     if name == lovers:
         try:
@@ -91,7 +93,7 @@ def findMyCard(name):
                 clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
-            print("lovers card not found")
+            
             findMyCard(death)
     if name == death:
         try:
@@ -104,7 +106,7 @@ def findMyCard(name):
                 clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
-            print("death card not found")
+            
             findMyCard(emperor)
     if name == emperor:
         try:
@@ -117,7 +119,7 @@ def findMyCard(name):
                 clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
-            print("emperor card not found")
+            
             findMyCard(fortune)
     if name == fortune:
         try:
@@ -130,23 +132,39 @@ def findMyCard(name):
                 clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
-            print("no cards found")
+            
             try:
                 location = pyautogui.locateOnScreen( # these are the worst coding practices ever
-                        "fortune.png",
-                        region=cardRegion,
+                        "retry.png",
+                        region=retryRegion,
                         confidence=0.65
                     )
                 if location:
-                    print("")
+                    pyautogui.moveTo(pyautogui.center(location))
+                    fixStupid()
+                    pyautogui.click()
+
+                    moveToPercent(54, 17, 0.2)
+                    fixStupid()
+                    pyautogui.click()
+
             except:
-                print("")
+                print("Retry not found")
 
 
 
-
-
-
+"""
+try:
+    while True:
+        x, y = pyautogui.position()
+        screen_w, screen_h = pyautogui.size()
+        x_pct = (x / screen_w) * 100
+        y_pct = (y / screen_h) * 100
+        print(f"\r{ x_pct:.2f}% x, {y_pct:.2f}% y", end="")
+        time.sleep(0.1)
+except KeyboardInterrupt:
+    print("\nStopped")
+"""
 
 time.sleep(2)
 
@@ -177,15 +195,4 @@ for img in images:
 """
 
 
-"""
-try:
-    while True:
-        x, y = pyautogui.position()
-        screen_w, screen_h = pyautogui.size()
-        x_pct = (x / screen_w) * 100
-        y_pct = (y / screen_h) * 100
-        print(f"\r{ x_pct:.2f}% x, {y_pct:.2f}% y", end="")
-        time.sleep(0.1)
-except KeyboardInterrupt:
-    print("\nStopped")
-"""
+
