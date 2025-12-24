@@ -4,8 +4,8 @@
 import pyautogui
 import time
 import keyboard
-import win32api
-import win32con
+import pydirectinput as pdi
+
 
 def moveToPercent(x_percent, y_percent, duration=0): # ai wrote this lmao
     width, height = pyautogui.size()
@@ -27,6 +27,103 @@ def move_rel_percent(x_pct, y_pct, duration=0, ): # youll never guess
     x_offset = int(w * x_pct / 100)
     y_offset = int(h * y_pct / 100)
     pyautogui.moveRel(x_offset, y_offset, duration=duration, tween=pyautogui.easeInOutQuad)
+
+def fixStupid():
+    pdi.moveRel(1, 0)
+    pdi.moveRel(-1, 0)
+
+def findMyCard(name):
+    if name == magician:
+        try:
+            location = pyautogui.locateOnScreen( # if this doesnt work i will cry
+                    "magician.png",
+                    region=cardRegion,
+                    confidence=0.65
+                )
+            if location:
+                pyautogui.moveTo(pyautogui.center(location))
+                move_rel_percent(0, 10, 1)
+
+                fixStupid()
+                pyautogui.click()
+                
+                
+        except pyautogui.ImageNotFoundException:
+            print("magician card not found")
+            findMyCard(lovers)
+    if name == lovers:
+        try:
+            location = pyautogui.locateOnScreen( # these are the worst coding practices ever
+                    "lovers.png",
+                    region=cardRegion,
+                    confidence=0.65
+                )
+            if location:
+                pyautogui.moveTo(pyautogui.center(location))
+                move_rel_percent(0, 10, 1)
+
+                fixStupid()
+                pyautogui.click()
+                
+                
+        except pyautogui.ImageNotFoundException:
+            print("lovers card not found")
+            findMyCard(death)
+    if name == death:
+        try:
+            location = pyautogui.locateOnScreen( # these are the worst coding practices ever
+                    "death.png",
+                    region=cardRegion,
+                    confidence=0.65
+                )
+            if location:
+                pyautogui.moveTo(pyautogui.center(location))
+                move_rel_percent(0, 10, 1)
+
+                fixStupid()
+                pyautogui.click()
+                
+                
+        except pyautogui.ImageNotFoundException:
+            print("death card not found")
+            findMyCard(emperor)
+    if name == emperor:
+        try:
+            location = pyautogui.locateOnScreen( # these are the worst coding practices ever
+                    "emperor.png",
+                    region=cardRegion,
+                    confidence=0.65
+                )
+            if location:
+                pyautogui.moveTo(pyautogui.center(location))
+                move_rel_percent(0, 10, 1)
+
+                fixStupid()
+                pyautogui.click()
+                
+                
+        except pyautogui.ImageNotFoundException:
+            print("emperor card not found")
+            findMyCard(fortune)
+    if name == fortune:
+        try:
+            location = pyautogui.locateOnScreen( # these are the worst coding practices ever
+                    "fortune.png",
+                    region=cardRegion,
+                    confidence=0.65
+                )
+            if location:
+                pyautogui.moveTo(pyautogui.center(location))
+                move_rel_percent(0, 10, 1)
+
+                fixStupid()
+                pyautogui.click()
+                
+                
+        except pyautogui.ImageNotFoundException:
+            print("no cards found")
+
+
 
 cardRegion = region_percent(
     x_pct=12,   # 70% from left
@@ -54,22 +151,12 @@ while True:
     if keyboard.is_pressed('g'):  # hold G to quit
         print("Stopped by hotkey")
         break
-    try:
-        location = pyautogui.locateOnScreen( # if this doesnt work i will cry
-                magician,
-                region=cardRegion,
-                confidence=0.65
-            )
-        if location:
-            pyautogui.moveTo(pyautogui.center(location))
-            move_rel_percent(0, 12, 1)
-            x, y = pyautogui.position()
+    
+    findMyCard(magician)
 
-            pyautogui.click()
-            
-    except pyautogui.ImageNotFoundException:
-        print("magician card not found")
-        time.sleep(2)
+
+
+    time.sleep(5)
 
 
 """
