@@ -7,6 +7,33 @@ import keyboard
 import pydirectinput as pdi
 
 
+death = "death.png", # im used to coding in javascript with easy objects shut up
+emperor = "emperor.png",
+fortune = "fortune.png",
+lovers = "lovers.png",
+magician = "magician.png"
+retry = "retry.png"
+
+
+cardRegion = region_percent(
+    x_pct=12,   # 12% from left
+    y_pct=22,   # 22% from top
+    w_pct=75,   # 75% of screen width
+    h_pct=13    # 13% of screen height
+)
+
+retryRegion = region_percent(
+    x_pct=30,
+    y_pct=50,
+    w_pct=30,
+    h_pct=30
+)
+
+#left, top, w, h = cardRegion
+#pyautogui.moveTo(left, top)
+#pyautogui.dragTo(left + w, top + h, duration=1.5)
+
+
 def moveToPercent(x_percent, y_percent, duration=0): # ai wrote this lmao
     width, height = pyautogui.size()
     x = int(width * (x_percent / 100))
@@ -32,6 +59,13 @@ def fixStupid():
     pdi.moveRel(1, 0)
     pdi.moveRel(-1, 0)
 
+def clickMyCard(location):
+    pyautogui.moveTo(pyautogui.center(location))
+    move_rel_percent(0, 10, 1)
+
+    fixStupid()
+    pyautogui.click()
+
 def findMyCard(name):
     if name == magician:
         try:
@@ -41,12 +75,7 @@ def findMyCard(name):
                     confidence=0.65
                 )
             if location:
-                pyautogui.moveTo(pyautogui.center(location))
-                move_rel_percent(0, 10, 1)
-
-                fixStupid()
-                pyautogui.click()
-                
+                clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
             print("magician card not found")
@@ -59,12 +88,7 @@ def findMyCard(name):
                     confidence=0.65
                 )
             if location:
-                pyautogui.moveTo(pyautogui.center(location))
-                move_rel_percent(0, 10, 1)
-
-                fixStupid()
-                pyautogui.click()
-                
+                clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
             print("lovers card not found")
@@ -77,12 +101,7 @@ def findMyCard(name):
                     confidence=0.65
                 )
             if location:
-                pyautogui.moveTo(pyautogui.center(location))
-                move_rel_percent(0, 10, 1)
-
-                fixStupid()
-                pyautogui.click()
-                
+                clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
             print("death card not found")
@@ -95,12 +114,7 @@ def findMyCard(name):
                     confidence=0.65
                 )
             if location:
-                pyautogui.moveTo(pyautogui.center(location))
-                move_rel_percent(0, 10, 1)
-
-                fixStupid()
-                pyautogui.click()
-                
+                clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
             print("emperor card not found")
@@ -113,37 +127,26 @@ def findMyCard(name):
                     confidence=0.65
                 )
             if location:
-                pyautogui.moveTo(pyautogui.center(location))
-                move_rel_percent(0, 10, 1)
-
-                fixStupid()
-                pyautogui.click()
-                
+                clickMyCard(location)
                 
         except pyautogui.ImageNotFoundException:
             print("no cards found")
+            try:
+                location = pyautogui.locateOnScreen( # these are the worst coding practices ever
+                        "fortune.png",
+                        region=cardRegion,
+                        confidence=0.65
+                    )
+                if location:
+                    print("")
+            except:
+                print("")
 
 
 
-cardRegion = region_percent(
-    x_pct=12,   # 70% from left
-    y_pct=22,   # 10% from top
-    w_pct=75,   # 20% of screen width
-    h_pct=13    # 15% of screen height
-)
-
-
-left, top, w, h = cardRegion
-#pyautogui.moveTo(left, top)
-#pyautogui.dragTo(left + w, top + h, duration=1.5)
 
 
 
-death = "death.png", # im used to coding in javascript with easy objects shut up
-emperor = "emperor.png",
-fortune = "fortune.png",
-lovers = "lovers.png",
-magician = "magician.png"
 
 time.sleep(2)
 
