@@ -14,6 +14,7 @@ lovers = "lovers.png",
 magician = "magician.png"
 retry = "retry.png"
 
+stage = 0
 
 
 def moveToPercent(x_percent, y_percent, duration=0): # ai wrote this lmao
@@ -69,6 +70,8 @@ retryRegion = region_percent(
 
 
 def findMyCard(name):
+    global stage
+
     if name == magician:
         try:
             location = pyautogui.locateOnScreen( # if this doesnt work i will cry
@@ -140,13 +143,32 @@ def findMyCard(name):
                         confidence=0.65
                     )
                 if location:
+
+                    stage = 1
+
                     pyautogui.moveTo(pyautogui.center(location))
                     fixStupid()
                     pyautogui.click()
 
-                    moveToPercent(54, 17, 0.2)
+                    moveToPercent(54, 18, 0.2)
                     fixStupid()
                     pyautogui.click()
+
+                    findMyCard(magician)
+                    time.sleep(2)
+                    findMyCard(magician)
+                    time.sleep(2)
+
+                    pyautogui.press("6")
+                    moveToPercent(78, 49)
+                    pyautogui.click()
+                    for i in range(10):
+                        pyautogui.press("e")
+                        time.sleep(1.4)
+                    
+                    stage = 2
+                    
+                    
 
             except:
                 print("Retry not found")
@@ -168,12 +190,18 @@ except KeyboardInterrupt:
 
 time.sleep(2)
 
-while True:
+pyautogui.press("1")
+moveToPercent(26, 36) # asce placement
+
+while stage > 1:
     if keyboard.is_pressed('g'):  # hold G to quit
         print("Stopped by hotkey")
         break
     
+    
+
     findMyCard(magician)
+    stage += 1
 
 
 
