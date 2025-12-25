@@ -84,6 +84,9 @@ def initMacro():
     time.sleep(2)
     findMyCard(magician)
 
+    time.sleep(.3)
+    pdi.press("6")
+    pdi.press("6")
     pdi.press("6")
 
     time.sleep(1.5)
@@ -91,9 +94,8 @@ def initMacro():
     moveToPercent(78, 49)
     fixStupid()
     pyautogui.click()
-    for i in range(10):
-        pdi.press("e")
-        time.sleep(1.4)
+    time.sleep(9)
+    pdi.press("e")
     
 
 def findMyCard(name):
@@ -108,6 +110,7 @@ def findMyCard(name):
                 )
             if location:
                 clickMyCard(location)
+                stage += 1
                 
         except pyautogui.ImageNotFoundException:
             
@@ -121,6 +124,7 @@ def findMyCard(name):
                 )
             if location:
                 clickMyCard(location)
+                stage += 1
                 
         except pyautogui.ImageNotFoundException:
             
@@ -134,6 +138,7 @@ def findMyCard(name):
                 )
             if location:
                 clickMyCard(location)
+                stage += 1
                 
         except pyautogui.ImageNotFoundException:
             
@@ -147,6 +152,7 @@ def findMyCard(name):
                 )
             if location:
                 clickMyCard(location)
+                stage += 1
                 
         except pyautogui.ImageNotFoundException:
             
@@ -160,76 +166,232 @@ def findMyCard(name):
                 )
             if location:
                 clickMyCard(location)
+                stage += 1
                 
         except pyautogui.ImageNotFoundException:
-            
-            try:
-                location = pyautogui.locateOnScreen( # these are the worst coding practices ever
-                        "retry.png",
-                        region=retryRegion,
-                        confidence=0.65
-                    )
-                if location:
-
-                    stage = 1
-
-                    pyautogui.moveTo(pyautogui.center(location))
-                    fixStupid()
-                    pyautogui.click()
-
-                    initMacro()
-                    
-                    
-
-            except:
-                print("Retry not found")
+            "good code practices"
 
 
+def tryTryAgain(): # good naming conventions
+    pyautogui.click()
+    time.sleep(5)
+    try:
+        location = pyautogui.locateOnScreen( # these are the worst coding practices ever
+                "retry.png",
+                region=retryRegion,
+                confidence=0.65
+            )
+        if location:
 
-"""
-try:
-    while True:
-        x, y = pyautogui.position()
-        screen_w, screen_h = pyautogui.size()
-        x_pct = (x / screen_w) * 100
-        y_pct = (y / screen_h) * 100
-        print(f"\r{ x_pct:.2f}% x, {y_pct:.2f}% y", end="")
-        time.sleep(0.1)
-except KeyboardInterrupt:
-    print("\nStopped")
-"""
+            pyautogui.moveTo(pyautogui.center(location))
+            fixStupid()
+            pyautogui.click()
 
+            main()
+    except:
+        tryTryAgain()
 
-time.sleep(5)
+    """
+    try:
+        while True:
+            x, y = pyautogui.position()
+            screen_w, screen_h = pyautogui.size()
+            x_pct = (x / screen_w) * 100
+            y_pct = (y / screen_h) * 100
+            print(f"\r{ x_pct:.2f}% x, {y_pct:.2f}% y", end="")
+            time.sleep(0.1)
+    except KeyboardInterrupt:
+        print("\nStopped")
+    """
 
-initMacro()
-
-mouseExitMenu()
-time.sleep(8)
-
-findMyCard(magician)
-
-pdi.press("1")
-moveToPercent(26, 36) # asce placement1
-
-fixStupid()
-pyautogui.click()
-stage = 2
-
-while stage > 1:
-    if keyboard.is_pressed('g'):  # hold G to quit
-        print("Stopped by hotkey")
-        break
-    
-    
-
-    findMyCard(magician)
-    stage += 1
-
-
-
+def main():
+    global stage
     time.sleep(5)
 
+    initMacro()
+
+    time.sleep(12)
+
+    findMyCard(magician)
+    time.sleep(3.3)
+
+    pdi.press("e")
+
+    mouseExitMenu()
+
+    time.sleep(.3)
+    pdi.press("1")
+    pdi.press("1")
+    pdi.press("1")
+
+    moveToPercent(27, 37) # ace placement1
+    fixStupid()
+    pyautogui.click()
+
+    stage = 1
+
+    while stage > 0:
+        if keyboard.is_pressed('g'):  # hold G to quit
+            print("Stopped by hotkey")
+            break
+        
+
+        findMyCard(magician)
+
+        time.sleep(.3)
+        if (stage == 3):
+            for i in range(10):
+                pdi.press("e")
+                time.sleep(.2)
+            stage+=1
+        if (stage == 5):
+            pdi.press("e")
+            pdi.press("e")
+            pdi.press("e")
+            mouseExitMenu()
+            time.sleep(.3)
+
+            pdi.press("4")
+            pdi.press("4")
+            pdi.press("4")
+
+            moveToPercent(38, 56)
+            fixStupid()
+            pyautogui.click()
+            pdi.press("e")
+            pdi.press("e")
+            pdi.press("e")
+            pdi.press("e")
+            pdi.press("e")
+            pdi.press("e")
+
+            time.sleep(17)
+
+            mouseExitMenu()
+            time.sleep(.3)
+
+            pdi.press("3")
+            pdi.press("3")
+            pdi.press("3")
+
+            time.sleep(.3)
+
+            moveToPercent(50, 42)
+            fixStupid()
+            pyautogui.click()
+
+            time.sleep(.3)
+            mouseExitMenu()
+            time.sleep(.3)
+
+            stage+=1
+
+
+        if (stage == 8):
+
+            moveToPercent(38, 57)
+            fixStupid()
+            pyautogui.click()
+            
+            for i in range(10):
+                pdi.press("e")
+                time.sleep(.2)
+            time.sleep(.5)
+
+            mouseExitMenu()
+            time.sleep(.3)
+
+            pdi.press("3")
+            pdi.press("3")
+            pdi.press("3")
+
+            time.sleep(.3)
+
+            moveToPercent(43, 42)
+            fixStupid()
+            pyautogui.click()
+
+            time.sleep(.3)
+            mouseExitMenu()
+            time.sleep(.3)
+
+            pdi.press("3")
+            pdi.press("3")
+            pdi.press("3")
+
+            time.sleep(.3)
+
+            moveToPercent(42, 44)
+            fixStupid()
+            pyautogui.click()
+            stage+=1
+        if (stage == 10):
+            time.sleep(.3)
+            mouseExitMenu()
+            time.sleep(.3)
+
+            moveToPercent(38, 59)
+            fixStupid()
+            pyautogui.click()
+            time.sleep(.3)
+
+            pdi.press("e")
+            pdi.press("e")
+            pdi.press("e")
+            stage+=1
+        if (stage == 14):
+
+            time.sleep(.3)
+            mouseExitMenu()
+            time.sleep(.3)
+
+            pdi.press("2")
+            pdi.press("2")
+            pdi.press("2")
+
+            moveToPercent(33, 59, .3)
+            fixStupid()
+            pyautogui.click()
+
+            time.sleep(.3)
+            for i in range(7):
+                pdi.press("e")
+                time.sleep(.2)
+
+            stage+=1
+        if (stage == 16):
+
+            time.sleep(.3)
+            mouseExitMenu()
+            time.sleep(.3)
+
+            pdi.press("5")
+            pdi.press("5")
+            pdi.press("5")
+
+            moveToPercent(22, 59, .3)
+            fixStupid()
+            pyautogui.click()
+
+            time.sleep(.3)
+            pdi.press("e")
+            pdi.press("e")
+            stage+=1
+        if stage == 19:
+            break
+
+
+        time.sleep(5)
+
+
+    mouseExitMenu()
+    moveToPercent(60, 50)
+    fixStupid()
+    tryTryAgain()
+    
+        
+
+main()
 
 """
 for img in images:
