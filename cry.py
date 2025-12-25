@@ -49,6 +49,11 @@ def clickMyCard(location):
     fixStupid()
     pyautogui.click()
 
+def mouseExitMenu():
+    moveToPercent(50, 50, 0.1)
+    fixStupid()
+    pyautogui.click()
+
 
 cardRegion = region_percent(
     x_pct=12,   # 12% from left
@@ -67,7 +72,29 @@ retryRegion = region_percent(
 #left, top, w, h = cardRegion
 #pyautogui.moveTo(left, top)
 #pyautogui.dragTo(left + w, top + h, duration=1.5)
+def initMacro():
+    moveToPercent(54, 18, 0.2)
+    fixStupid()
+    pyautogui.click()
 
+    moveToPercent(70, 48, 1.5)
+    fixStupid()
+    pyautogui.click()
+
+    time.sleep(2)
+    findMyCard(magician)
+
+    pdi.press("6")
+
+    time.sleep(1.5)
+
+    moveToPercent(78, 49)
+    fixStupid()
+    pyautogui.click()
+    for i in range(10):
+        pdi.press("e")
+        time.sleep(1.4)
+    
 
 def findMyCard(name):
     global stage
@@ -150,23 +177,7 @@ def findMyCard(name):
                     fixStupid()
                     pyautogui.click()
 
-                    moveToPercent(54, 18, 0.2)
-                    fixStupid()
-                    pyautogui.click()
-
-                    findMyCard(magician)
-                    time.sleep(2)
-                    findMyCard(magician)
-                    time.sleep(2)
-
-                    pyautogui.press("6")
-                    moveToPercent(78, 49)
-                    pyautogui.click()
-                    for i in range(10):
-                        pyautogui.press("e")
-                        time.sleep(1.4)
-                    
-                    stage = 2
+                    initMacro()
                     
                     
 
@@ -188,10 +199,22 @@ except KeyboardInterrupt:
     print("\nStopped")
 """
 
-time.sleep(2)
 
-pyautogui.press("1")
-moveToPercent(26, 36) # asce placement
+time.sleep(5)
+
+initMacro()
+
+mouseExitMenu()
+time.sleep(8)
+
+findMyCard(magician)
+
+pdi.press("1")
+moveToPercent(26, 36) # asce placement1
+
+fixStupid()
+pyautogui.click()
+stage = 2
 
 while stage > 1:
     if keyboard.is_pressed('g'):  # hold G to quit
